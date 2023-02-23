@@ -2,7 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from streamlit_folium import folium_static
-from utils import get_folium_map, add_dc_markers, get_nearsest_dc, get_initial_map
+from utils import (
+    get_folium_map,
+    add_dc_markers,
+    get_nearsest_dc,
+    get_initial_map,
+    get_initial_map_opt,
+)
 from config import dc_lat_lng, dc_colors, capacity_grid_options, dc_capacity
 from st_aggrid import (
     AgGrid,
@@ -37,7 +43,7 @@ if "optimal_df" not in st.session_state:
 else:
     opt_df = st.session_state["optimal_df"]
     # st.write(opt_df.type)
-    us_map = get_initial_map(opt_df, us_map)
+    us_map = get_initial_map_opt(opt_df, us_map)
 folium_static(us_map, width=900)
 
 if st.session_state.get("optimal_df", None) is not None:
