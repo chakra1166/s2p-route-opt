@@ -47,6 +47,22 @@ def add_cities(city, lat, lng, dc, colors, folium_map):
     return folium_map
 
 
+def add_cities_opt(city, lat, lng, opt_dc, curr_dc, colors, folium_map):
+    for city, lat, lng, opt_dc, curr_dc, clr in zip(
+        city, lat, lng, opt_dc, curr_dc, colors
+    ):
+        folium.CircleMarker(
+            [lat, lng],
+            radius=17,
+            fill=True,
+            fill_color=clr,
+            color=False,
+            fill_opacity=0.3,
+            tooltip=f"Zone:{city}, Optimal DC:{opt_dc}, Current DC: {curr_dc}",
+        ).add_to(folium_map)
+    return folium_map
+
+
 def get_initial_map(df, folium_map):
     cities = df["city"].values.tolist()
     lat = df["lat"].values.tolist()
@@ -54,6 +70,17 @@ def get_initial_map(df, folium_map):
     dc = df["DC"].values.tolist()
     colors = df["Color"].values.tolist()
     folium_map = add_cities(cities, lat, lng, dc, colors, folium_map)
+    return folium_map
+
+
+def get_initial_map_opt(df, folium_map):
+    cities = df["city"].values.tolist()
+    lat = df["lat"].values.tolist()
+    lng = df["lng"].values.tolist()
+    dc = df["DC"].values.tolist()
+    curr_dc = df["curr_DC"].values.tolist()
+    colors = df["Color"].values.tolist()
+    folium_map = add_cities_opt(cities, lat, lng, dc, curr_dc, colors, folium_map)
     return folium_map
 
 
