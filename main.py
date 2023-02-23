@@ -121,12 +121,12 @@ if st.session_state.get("optimal_df", None) is not None:
     )
     grid_options2 = gd2.build()
 
-    # section to add 4 metrics (dummy values)
+    # section to add 3 metrics (dummy values)
     col1, col2, col3 = st.columns(3)
     col1.metric("Total Route Changes", 30)
     col2.metric("Optimal Cost(Based on Distance)", "$ 1,555")
-    col3.metric("Recommended Cost(After Optimization)", "$ 1,380", "11%", delta_color="inverse")
-    #col4.metric("Simulated Cost", "$ 1,450", "7%", delta_color="inverse")
+    col3.metric("Recommended Cost(After Optimization)", "$ 1,380", "11%", delta_color="normal")
+
     _, opt_col, _ = st.columns([1, 8, 1])
     with opt_col:
         # st.subheader("Optimal DC", )
@@ -147,6 +147,7 @@ if st.session_state.get("optimal_df", None) is not None:
         # custome_css=custom_css,
     )["data"]
 
+    optimal_df2.loc[(st.session_state["optimal_df"]['user_input_dc'] != optimal_df2['user_input_dc']), 'Cost Deviation'] = 100
     optimal_df2["Color"] = optimal_df2["user_input_dc"].map(dc_colors)
     if not st.session_state["optimal_df"].equals(optimal_df2):
         st.session_state["optimal_df"] = optimal_df2
