@@ -42,7 +42,7 @@ def add_cities(city, lat, lng, dc, colors, folium_map):
             fill_color=clr,
             color=False,
             fill_opacity=0.3,
-            tooltip=f"Zone:{city}, DC:{dc}",
+            tooltip=f"Zone:{city}, Optimal:{dc}",
         ).add_to(folium_map)
     return folium_map
 
@@ -58,7 +58,7 @@ def add_cities_opt(city, lat, lng, opt_dc, curr_dc, colors, folium_map):
             fill_color=clr,
             color=False,
             fill_opacity=0.3,
-            tooltip=f"Zone:{city}, Optimal DC:{opt_dc}, Current DC: {curr_dc}",
+            tooltip=f"Zone:{city}, Optimal:{opt_dc}, Recommended: {curr_dc}",
         ).add_to(folium_map)
     return folium_map
 

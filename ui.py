@@ -2,7 +2,7 @@ import streamlit as st
 import base64
 
 
-def header_ui(title="S2P Route Optimization"):
+def header_ui(title="S2U Route Optimization"):
     st.markdown(
         """
         <style>
@@ -33,7 +33,7 @@ def header_ui(title="S2P Route Optimization"):
 
     metric_style = f"""
     <style>
-    div.css-12w0qpk.e1tzin5v2 {{ 
+    div.css-1r6slb0.e1tzin5v2 {{ 
         border: 1.5px solid black;
         padding: 5px;
         text-align: center;
@@ -48,6 +48,7 @@ def header_ui(title="S2P Route Optimization"):
         border: 1px solid black;
         background-color: #004B93;
         color: white;
+        margin: auto;
     }}
     <style>
     """

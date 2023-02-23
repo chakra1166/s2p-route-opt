@@ -62,8 +62,8 @@ if st.session_state.get("optimal_df", None) is not None:
     gd2 = GridOptionsBuilder.from_dataframe(opt_df)
     gd2.configure_default_column(hide=True, editable=False)
     gd2.configure_column(field="city", header_name="Zone Name", hide=False)
-    gd2.configure_column(field="curr_DC", header_name="Current DC", hide=False)
-    gd2.configure_column(field="DC", header_name="Optimal DC", hide=False)
+    gd2.configure_column(field="curr_DC", header_name="Optimal DC", hide=False)
+    gd2.configure_column(field="DC", header_name="Recommended DC", hide=False)
     gd2.configure_column(
         field="Demand", header_name="Total Orders", hide=False, editable=True
     )
@@ -85,7 +85,7 @@ if st.session_state.get("optimal_df", None) is not None:
     editor_params = JsCode(
         """function(params) {
         var selectedCountry = params.data.country;
-        if (['Excel', 'Vina'].includes(params.data.city)) {
+        if (['Excel', 'Vina', 'Argonia', 'Arion'].includes(params.data.city)) {
             return {
                 values: [
                     "Fresno",
@@ -122,11 +122,11 @@ if st.session_state.get("optimal_df", None) is not None:
     grid_options2 = gd2.build()
 
     # section to add 4 metrics (dummy values)
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3 = st.columns(3)
     col1.metric("Total Route Changes", 30)
-    col2.metric("Current Cost", "$ 1,555")
-    col3.metric("Optimal Cost", "$ 1,380", "11%", delta_color="inverse")
-    col4.metric("Simulated Cost", "$ 1,450", "7%", delta_color="inverse")
+    col2.metric("Optimal Cost(Based on Distance)", "$ 1,555")
+    col3.metric("Recommended Cost(After Optimization)", "$ 1,380", "11%", delta_color="inverse")
+    #col4.metric("Simulated Cost", "$ 1,450", "7%", delta_color="inverse")
     _, opt_col, _ = st.columns([1, 8, 1])
     with opt_col:
         # st.subheader("Optimal DC", )
