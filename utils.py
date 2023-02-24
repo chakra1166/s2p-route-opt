@@ -33,8 +33,8 @@ def add_dc_markers(dc_lat_lng, dc_colors, folium_map):
     return folium_map
 
 
-def add_cities(city, lat, lng, dc, colors, folium_map):
-    for city, lat, lng, dc, clr in zip(city, lat, lng, dc, colors):
+def add_cities(city, lat, lng, dc, demand, colors, folium_map):
+    for city, lat, lng, dc, demand, clr in zip(city, lat, lng, dc, demand, colors):
         folium.CircleMarker(
             [lat, lng],
             radius=17,
@@ -42,14 +42,14 @@ def add_cities(city, lat, lng, dc, colors, folium_map):
             fill_color=clr,
             color=False,
             fill_opacity=0.3,
-            tooltip=f"Zone:{city}, Optimal:{dc}",
+            tooltip=f"Zone:{city}, Optimal:{dc}, Demand: {demand}",
         ).add_to(folium_map)
     return folium_map
 
 
-def add_cities_opt(city, lat, lng, opt_dc, curr_dc, colors, folium_map):
-    for city, lat, lng, opt_dc, curr_dc, clr in zip(
-        city, lat, lng, opt_dc, curr_dc, colors
+def add_cities_opt(city, lat, lng, opt_dc, curr_dc, demand, colors, folium_map):
+    for city, lat, lng, opt_dc, curr_dc, demand, clr in zip(
+        city, lat, lng, opt_dc, curr_dc, demand, colors
     ):
         folium.CircleMarker(
             [lat, lng],
@@ -58,7 +58,7 @@ def add_cities_opt(city, lat, lng, opt_dc, curr_dc, colors, folium_map):
             fill_color=clr,
             color=False,
             fill_opacity=0.3,
-            tooltip=f"Zone:{city}, Recommended:{opt_dc}, Optimal: {curr_dc}",
+            tooltip=f"Zone:{city}, Recommended:{opt_dc}, Optimal: {curr_dc}, Demand:{demand}",
         ).add_to(folium_map)
     return folium_map
 
@@ -68,8 +68,9 @@ def get_initial_map(df, folium_map):
     lat = df["lat"].values.tolist()
     lng = df["lng"].values.tolist()
     dc = df["DC"].values.tolist()
+    demand = df["Demand"].values.tolist()
     colors = df["Color"].values.tolist()
-    folium_map = add_cities(cities, lat, lng, dc, colors, folium_map)
+    folium_map = add_cities(cities, lat, lng, dc, demand, colors, folium_map)
     return folium_map
 
 
@@ -79,8 +80,11 @@ def get_initial_map_opt(df, folium_map):
     lng = df["lng"].values.tolist()
     dc = df["DC"].values.tolist()
     curr_dc = df["curr_DC"].values.tolist()
+    demand = df["Demand"].values.tolist()
     colors = df["Color"].values.tolist()
-    folium_map = add_cities_opt(cities, lat, lng, dc, curr_dc, colors, folium_map)
+    folium_map = add_cities_opt(
+        cities, lat, lng, dc, curr_dc, demand, colors, folium_map
+    )
     return folium_map
 
 
